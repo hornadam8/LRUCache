@@ -2,6 +2,9 @@
 #define LRU_DOUBLYLINKEDLIST_H
 
 #include <memory>
+#include <string>
+
+using namespace std;
 
 template<typename key_type>
 struct dll_node {
@@ -24,8 +27,8 @@ public:
 
 private:
     int size;
-    std::shared_ptr<dll_node<key_type>> head;
-    std::shared_ptr<dll_node<key_type>> tail;
+    shared_ptr<dll_node<key_type>> head;
+    shared_ptr<dll_node<key_type>> tail;
 };
 
 #endif //LRU_DOUBLYLINKEDLIST_H

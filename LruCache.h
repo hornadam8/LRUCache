@@ -5,6 +5,8 @@
 #include "DoublyLinkedList.h"
 #include <memory>
 
+using namespace std;
+
 template<typename key_type, typename val_type>
 class LruCache {
 public:
@@ -17,7 +19,7 @@ public:
 
 private:
     struct Impl;
-    std::unique_ptr<Impl> pImpl;
+    unique_ptr<Impl> pImpl;
 };
 
 #endif // LRU_LRUCACHE_H

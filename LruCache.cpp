@@ -1,5 +1,6 @@
 #include "LruCache.h"
 #include <iostream>
+#include <string>
 
 template<typename key_type, typename val_type>
 struct LruCache<key_type, val_type>::Impl {
@@ -11,7 +12,7 @@ struct LruCache<key_type, val_type>::Impl {
 };
 
 template<typename key_type, typename val_type>
-LruCache<key_type, val_type>::LruCache(int cap) : pImpl(std::make_unique<Impl>(cap)) {}
+LruCache<key_type, val_type>::LruCache(int cap) : pImpl(make_unique<Impl>(cap)) {}
 
 template<typename key_type, typename val_type>
 LruCache<key_type, val_type>::~LruCache() = default;
@@ -23,7 +24,8 @@ val_type LruCache<key_type, val_type>::Get(key_type key) {
         pImpl->queue.MoveToHead(key);
         return val;
     }
-    return -1;
+    val_type nil;
+    return nil;
 }
 
 template<typename key_type, typename val_type>
@@ -48,4 +50,10 @@ val_type LruCache<key_type, val_type>::CacheFunction(key_type key, val_type (*fu
 
 // Explicit template instantiation
 template class LruCache<int, long>;
+template class LruCache<int, int>;
+template class LruCache<int, bool>;
+template class LruCache<int, map<int, int> >;
+template class LruCache<int, map<int, bool> >;
+template class LruCache<string, string>;
+template class LruCache<string, map<string, string> >;
 // Add more explicit instantiations if needed for other types

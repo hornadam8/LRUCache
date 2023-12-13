@@ -8,7 +8,7 @@ DoublyLinkedList<key_type>::~DoublyLinkedList() = default;
 
 template<typename key_type>
 void DoublyLinkedList<key_type>::Insert(key_type key) {
-    auto new_node = std::make_shared<dll_node<key_type>>();
+    shared_ptr<dll_node<key_type>> new_node = shared_ptr<dll_node<key_type>>(new dll_node<key_type>);
     new_node->key = key;
 
     if (head) {
@@ -80,3 +80,4 @@ std::shared_ptr<dll_node<key_type>> DoublyLinkedList<key_type>::GetNth(int idx) 
 }
 
 template class DoublyLinkedList<int>;
+template class DoublyLinkedList<string>;
