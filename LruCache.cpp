@@ -56,5 +56,6 @@ template class LruCache<int, map<int, int> >;
 template class LruCache<int, map<int, bool> >;
 template class LruCache<string, string>;
 template class LruCache<string, map<string, string> >;
+template class LruCache<string, map<char, int> >;
 template class LruCache<string, vector<string> >;
 template class LruCache<int, vector<int> >;

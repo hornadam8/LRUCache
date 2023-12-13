@@ -2,6 +2,8 @@
 #include "LruCache.h"
 #include "SlowFunctions.h"
 #include <sys/time.h>
+#include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -71,11 +73,46 @@ int main() {
     cout << "took: " << end - start << " ms" << endl;
 
 
+
     cout << "\nSlow string reverse should be fast the second time" << endl<< str << endl;
     gettimeofday(&tp, NULL);
     start = tp.tv_sec * 1000 + tp.tv_usec / 1000;
     rev_ret = reverse_cache.CacheFunction(str, SlowFunctions::ReverseString);
     cout << *rev_ret << endl;
+    gettimeofday(&tp, NULL);
+    end = tp.tv_sec * 1000 + tp.tv_usec / 1000;
+    cout << "took: " << end - start << " ms" << endl;
+
+    LruCache<string, map<char,int>> char_count_cache = LruCache<string, map<char, int>>(3);
+    ifstream t("words.txt");
+    stringstream buffer;
+    buffer << t.rdbuf();
+    str = buffer.str();
+    map<char,int> result;
+    shared_ptr<map<char,int>> chars_ret = shared_ptr<map<char,int>>(new map<char, int>);
+
+    // This reverse string implementation sleeps to simulate much large input
+    cout << "\nSlow count chars should take a while the first time"  << endl;
+    gettimeofday(&tp, NULL);
+    start = tp.tv_sec * 1000 + tp.tv_usec / 1000;
+    chars_ret = char_count_cache.CacheFunction(str, SlowFunctions::CountChars);
+    result = *chars_ret;
+    for (const auto& c : result) {
+        cout << c.first << ": " << c.second << endl;
+    }
+
+    gettimeofday(&tp, NULL);
+    end = tp.tv_sec * 1000 + tp.tv_usec / 1000;
+    cout << "took: " << end - start << " ms" << endl;
+
+    cout << "\nSlow count chars should be fast the second time" << endl;
+    gettimeofday(&tp, NULL);
+    start = tp.tv_sec * 1000 + tp.tv_usec / 1000;
+    chars_ret = char_count_cache.CacheFunction(str, SlowFunctions::CountChars);
+    result = *chars_ret;
+    for (const auto& c : result) {
+        cout << c.first << ": " << c.second << endl;
+    }
     gettimeofday(&tp, NULL);
     end = tp.tv_sec * 1000 + tp.tv_usec / 1000;
     cout << "took: " << end - start << " ms" << endl;

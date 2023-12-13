@@ -22,3 +22,15 @@ string SlowFunctions::ReverseString(string str) {
     std::this_thread::sleep_for(std::chrono::milliseconds(25));
     return str;
 }
+
+map<char, int> SlowFunctions::CountChars(string str) {
+    map<char,int> ret;
+    for (char c : str) {
+        if (ret.count(c)) {
+            ret[c]++;
+        } else {
+            ret[c] = 1;
+        }
+    }
+    return ret;
+}
