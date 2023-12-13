@@ -1,0 +1,61 @@
+Project: Least Recently Used Cache
+Name: Adam Horn
+Class and semester: CSPB-2270, Fall
+
+
+    For my project I plan to implement a Least Recently Used (LRU) cache. This is a commonly needed data structure when
+building APIs or other services that depend on high-throughput, low-latency access to data; often used on top of a database
+or another API. The LRU cache allows fast, in-memory access to the most recently fetched pieces of data.
+    I plan to use a combination of a hashmap and a doubly-linked list for my implementation because it seems like the most
+straightforward implementation that allows quick access (via the hashmap), and easily maintainable priority (via the doubly linked list).
+Most other implementations also include a hashmap for data access, but differ in how they maintain data priority. Some use a Deque,
+others use a stack but neither of these choices seem to provide any noticeable advantage, so I chose to use a doubly-linked list
+for simplicity.
+
+    Structures:
+
+dll_node {
+    String key                   // key to cached data in hashmap
+    shared_ptr<dll_node> next
+    shared_ptr<dll_node> prev
+}
+
+DoublyLinkedList {
+    int size;
+    shared_ptr<dll_node> head
+    shared_ptr<dll_node> tail
+}
+
+LruCache {
+    HashMap map
+    DLinkedList queue
+    int capacity
+}
+
+
+    Methods to be implemented:
+
+DoublyLinkedList
+
+    insert - takes a string key as an argument, creates a new dll node and puts it at the head of the list
+
+    move_to_head - takes a string key as an argument, finds node with the specified key and moves it to the head
+
+    remove - removes the tail node
+
+LruCache
+
+    get - takes a string key as an argument, returns associated data from the hashmap and moves its key node to the head
+          of the doubly linked list. If the key is not present, returns null
+
+    add - takes a string key and a hashmap data as arguments, adds these to the LRU hashmap and adds the key to the DLL.
+          if the DLL size exceeds the LRU's capacity, calls DLL remove
+
+    cache_function - takes a string key and a function pointer of a function that takes a string argument and returns
+                     a hashmap of data. First checks the cache, and returns its data if present, otherwise calls the passed
+                     in function, caches its output and returns it
+
+    I will test this data structure by creating functions with loggers inside them to pass into cache_function.
+The first time a key is passed in it should hit the loggers within the function, and the second time it should be found
+in the cache and thus not trigger the loggers. We will also check that the loggers are called again once the LRU exceeds
+its capacity and is called with the least recently called key.
