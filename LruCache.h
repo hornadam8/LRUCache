@@ -13,9 +13,9 @@ public:
     LruCache(int cap);
     ~LruCache();
 
-    val_type Get(key_type key);
+    shared_ptr<val_type> Get(key_type key);
     void Add(key_type key, val_type value);
-    val_type CacheFunction(key_type key, val_type (*func)(key_type));
+    shared_ptr<val_type> CacheFunction(key_type key, val_type (*func)(key_type));
 
 private:
     struct Impl;

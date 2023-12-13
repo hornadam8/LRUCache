@@ -18,14 +18,13 @@ template<typename key_type, typename val_type>
 LruCache<key_type, val_type>::~LruCache() = default;
 
 template<typename key_type, typename val_type>
-val_type LruCache<key_type, val_type>::Get(key_type key) {
+shared_ptr<val_type> LruCache<key_type, val_type>::Get(key_type key) {
     if (pImpl->hashmap.count(key)) {
         val_type val = pImpl->hashmap[key];
         pImpl->queue.MoveToHead(key);
-        return val;
+        return make_shared<val_type>(val);
     }
-    val_type nil;
-    return nil;
+    return nullptr;
 }
 
 template<typename key_type, typename val_type>
@@ -39,13 +38,13 @@ void LruCache<key_type, val_type>::Add(key_type key, val_type value) {
 }
 
 template<typename key_type, typename val_type>
-val_type LruCache<key_type, val_type>::CacheFunction(key_type key, val_type (*func)(key_type)) {
+shared_ptr<val_type> LruCache<key_type, val_type>::CacheFunction(key_type key, val_type (*func)(key_type)) {
     if (pImpl->hashmap.count(key)) {
         return Get(key);
     }
     val_type val = func(key);
     Add(key, val);
-    return val;
+    return make_shared<val_type>(val);
 }
 
 // Explicit template instantiation
