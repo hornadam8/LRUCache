@@ -14,8 +14,8 @@ EXEC = lru
 all: $(EXEC)
 
 # Link the final executable
-$(EXEC): $(OBJ) SlowMath.o main.o
-	$(CXX) $(CXXFLAGS) SlowMath.o main.o $(OBJ) -o $(EXEC)
+$(EXEC): $(OBJ) SlowFunctions.o main.o
+	$(CXX) $(CXXFLAGS) SlowFunctions.o main.o $(OBJ) -o $(EXEC)
 
 # Compile DoublyLinkedList
 DoublyLinkedList.o: DoublyLinkedList.cpp
@@ -25,9 +25,9 @@ DoublyLinkedList.o: DoublyLinkedList.cpp
 LruCache.o: LruCache.cpp
 	$(CXX) $(CXXFLAGS) -c LruCache.cpp -o LruCache.o
 
-# Compile SlowMath
-SlowMath.o: SlowMath.cpp
-	$(CXX) $(CXXFLAGS) -c SlowMath.cpp -o SlowMath.o
+# Compile SlowFunctions
+SlowFunctions.o: SlowFunctions.cpp
+	$(CXX) $(CXXFLAGS) -c SlowFunctions.cpp -o SlowFunctions.o
 
 # Compile main
 main.o: main.cpp
@@ -35,6 +35,6 @@ main.o: main.cpp
 
 # Clean the build
 clean:
-	rm -f $(OBJ) SlowMath.o main.o $(EXEC)
+	rm -f $(OBJ) SlowFunctions.o main.o $(EXEC)
 
 .PHONY: all clean

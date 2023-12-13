@@ -8,5 +8,5 @@ add_executable(lru main.cpp
         DoublyLinkedList.cpp
         LruCache.h
         LruCache.cpp
-        SlowMath.cpp
+        SlowFunctions.cpp
         tests/TestLruCache.cpp)

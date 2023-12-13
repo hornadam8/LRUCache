@@ -49,13 +49,20 @@ void DoublyLinkedList<key_type>::MoveToHead(key_type key) {
     while (curr && curr->key != key) {
         curr = curr->next;
     }
-
+    // if the key was found
     if (curr) {
-        if (curr->prev) curr->prev->next = curr->next;
-        if (curr->next) curr->next->prev = curr->prev;
-
-        if (tail == curr) tail = curr->prev;
-
+        curr->prev->next = curr->next;
+        // removing the node from its current position
+        if (tail == curr) {
+            // if curr is tail, update the tail node
+            tail = curr->prev;
+            tail->next = nullptr;
+        } else {
+            // otherwise, update next and previous nodes to remove it
+            curr->next->prev = curr->prev;
+            curr->prev->next = curr->next;
+        }
+        // adding it to the head of the list
         curr->next = head;
         curr->prev = nullptr;
         head->prev = curr;
@@ -68,8 +75,9 @@ int DoublyLinkedList<key_type>::GetSize() const {
     return size;
 }
 
+// this function is primarily for easily testing capacity
 template<typename key_type>
-std::shared_ptr<dll_node<key_type>> DoublyLinkedList<key_type>::GetNth(int idx) {
+shared_ptr<dll_node<key_type>> DoublyLinkedList<key_type>::GetNth(int idx) {
     if (idx >= size) return nullptr;
 
     auto curr = head;

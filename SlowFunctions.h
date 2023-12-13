@@ -4,8 +4,13 @@
 
 #ifndef LRU_SLOWMATH_H
 #define LRU_SLOWMATH_H
-class SlowMath {
+
+#include <string>
+using namespace std;
+
+class SlowFunctions {
 public:
     static long NthFibonacci(int n);
+    static string ReverseString(string str);
 };
 #endif //LRU_SLOWMATH_H

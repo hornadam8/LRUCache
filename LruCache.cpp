@@ -1,6 +1,7 @@
 #include "LruCache.h"
 #include <iostream>
 #include <string>
+#include <vector>
 
 template<typename key_type, typename val_type>
 struct LruCache<key_type, val_type>::Impl {
@@ -47,7 +48,7 @@ shared_ptr<val_type> LruCache<key_type, val_type>::CacheFunction(key_type key, v
     return make_shared<val_type>(val);
 }
 
-// Explicit template instantiation
+
 template class LruCache<int, long>;
 template class LruCache<int, int>;
 template class LruCache<int, bool>;
@@ -55,4 +56,5 @@ template class LruCache<int, map<int, int> >;
 template class LruCache<int, map<int, bool> >;
 template class LruCache<string, string>;
 template class LruCache<string, map<string, string> >;
-// Add more explicit instantiations if needed for other types
+template class LruCache<string, vector<string> >;
+template class LruCache<int, vector<int> >;
