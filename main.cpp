@@ -65,8 +65,7 @@ int main() {
     string str = buffer.str();
     shared_ptr<string> rev_ret = shared_ptr<string>(new string);
 
-    // This reverse string implementation sleeps to simulate much large input
-    cout << "\nSlow string reverse should take a while the first time (function sleeps to simulate large input)" << endl;
+    cout << "\nSlow string reverse should take a while the first time" << endl;
     gettimeofday(&tp, NULL);
     start = tp.tv_sec * 1000 + tp.tv_usec / 1000;
     rev_ret = reverse_cache.CacheFunction(str, SlowFunctions::ReverseString);
@@ -90,7 +89,7 @@ int main() {
     map<char,int> result;
     shared_ptr<map<char,int>> chars_ret = shared_ptr<map<char,int>>(new map<char, int>);
 
-    // This reverse string implementation sleeps to simulate much large input
+
     cout << "\nSlow count chars should take a while the first time"  << endl;
     gettimeofday(&tp, NULL);
     start = tp.tv_sec * 1000 + tp.tv_usec / 1000;
