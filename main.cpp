@@ -59,35 +59,34 @@ int main() {
 
     
     LruCache<string,string> reverse_cache = LruCache<string, string>(3);
-    string str = "Good thing this isn't a palindrome!";
+    ifstream t("words.txt");
+    stringstream buffer;
+    buffer << t.rdbuf();
+    string str = buffer.str();
     shared_ptr<string> rev_ret = shared_ptr<string>(new string);
 
     // This reverse string implementation sleeps to simulate much large input
-    cout << "\nSlow string reverse should take a while the first time (function sleeps to simulate large input)" << endl << str << endl;
+    cout << "\nSlow string reverse should take a while the first time (function sleeps to simulate large input)" << endl;
     gettimeofday(&tp, NULL);
     start = tp.tv_sec * 1000 + tp.tv_usec / 1000;
     rev_ret = reverse_cache.CacheFunction(str, SlowFunctions::ReverseString);
-    cout << *rev_ret << endl;
+    //cout << *rev_ret << endl; commenting this out because its a really long string
     gettimeofday(&tp, NULL);
     end = tp.tv_sec * 1000 + tp.tv_usec / 1000;
     cout << "took: " << end - start << " ms" << endl;
 
 
 
-    cout << "\nSlow string reverse should be fast the second time" << endl<< str << endl;
+    cout << "\nSlow string reverse should be fast the second time" << endl << endl;
     gettimeofday(&tp, NULL);
     start = tp.tv_sec * 1000 + tp.tv_usec / 1000;
     rev_ret = reverse_cache.CacheFunction(str, SlowFunctions::ReverseString);
-    cout << *rev_ret << endl;
+    //cout << *rev_ret << endl; commenting this out because its a really long string
     gettimeofday(&tp, NULL);
     end = tp.tv_sec * 1000 + tp.tv_usec / 1000;
     cout << "took: " << end - start << " ms" << endl;
 
     LruCache<string, map<char,int>> char_count_cache = LruCache<string, map<char, int>>(3);
-    ifstream t("words.txt");
-    stringstream buffer;
-    buffer << t.rdbuf();
-    str = buffer.str();
     map<char,int> result;
     shared_ptr<map<char,int>> chars_ret = shared_ptr<map<char,int>>(new map<char, int>);
 

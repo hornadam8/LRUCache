@@ -18,8 +18,6 @@ long SlowFunctions::NthFibonacci(int n) {
 
 string SlowFunctions::ReverseString(string str) {
     reverse(str.begin(), str.end());
-    // this is actually really fast, so I'll sleep to simulate something longer, like an entire book
-    std::this_thread::sleep_for(std::chrono::milliseconds(25));
     return str;
 }
 
